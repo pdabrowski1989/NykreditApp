@@ -20,8 +20,11 @@ gulp.task('saas', () => {
 });
 
 gulp.task('js-app', () => {
-    return gulp.src('./app/**/*.js')
-        .pipe(babel({ presets: ["es2015"] }))
+    return gulp.src([
+        './app/**/*.js',
+        '!./app/**/*.spec.js'
+    ])
+        .pipe(babel({presets: ["es2015"]}))
         .pipe(concat('app.min.js'))
         .pipe(ngAnnotate())
         .pipe(uglify())
@@ -32,10 +35,9 @@ gulp.task('js-vendor', () => {
     return gulp.src([
         './node_modules/angular/angular.js',
         './node_modules/angular-ui-router/release/angular-ui-router.js',
-        './node_modules/bootstrap/js/bootstrap.js'
+        './node_modules/bootstrap/dist/js/bootstrap.js'
     ])
         .pipe(concat('vendor.min.js'))
-        .pipe(uglify())
         .pipe(gulp.dest('./dist/js'))
 });
 
