@@ -11,7 +11,9 @@
   },
   "author": "Dabrowski Pawel",
   "license": "ISC",
-  "dependencies": {},
+  "dependencies": {
+    "angular-ui-router": "^1.0.3"
+  },
   "devDependencies": {
     "angular": "^1.6.6",
     "angular-ui-router": "^1.0.3",
@@ -20,6 +22,7 @@
     "babel-preset-es2015": "^6.24.1",
     "babel-preset-stage-0": "^6.24.1",
     "babelify": "^7.3.0",
+    "bootstrap": "^3.3.7",
     "gulp": "^3.9.1",
     "gulp-babel": "^7.0.0",
     "gulp-concat": "^2.6.1",

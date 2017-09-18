@@ -9,11 +9,13 @@ const ngAnnotate = require('gulp-ng-annotate');
 
 gulp.task('saas', () => {
     return gulp.src([
-        './app/**/*.scss'
+        './node_modules/bootstrap/dist/css/bootstrap.css',
+        './node_modules/bootstrap/dist/css/bootstrap-theme.css',
+        './app/**/*.scss',
     ])
         .pipe(sass.sync().on('error', sass.logError))
         .pipe(sass({outputStyle: 'compressed'}))
-        .pipe(concat('style.min..css'))
+        .pipe(concat('style.min.css'))
         .pipe(gulp.dest('./dist/css'))
 });
 
@@ -28,10 +30,11 @@ gulp.task('js-app', () => {
 
 gulp.task('js-vendor', () => {
     return gulp.src([
-        './node_modules/angular/angular.js'
+        './node_modules/angular/angular.js',
+        './node_modules/angular-ui-router/release/angular-ui-router.js',
+        './node_modules/bootstrap/js/bootstrap.js'
     ])
-        .pipe(babel({presets: ['env']}))
-        .pipe(concat('app.min.js'))
+        .pipe(concat('vendor.min.js'))
         .pipe(uglify())
         .pipe(gulp.dest('./dist/js'))
 });
@@ -39,16 +42,17 @@ gulp.task('js-vendor', () => {
 gulp.task('parse-index', () => {
     return gulp.src('./index.html')
         .pipe(htmlreplace({
-            'css': 'styles.min.css',
+            'css': 'css/style.min.css',
             'app': 'js/app.min.js',
             'vendor': 'js/vendor.min.js'
         }))
         .pipe(gulp.dest('./dist'));
 });
 
-gulp.task('copy-html', () => {
+gulp.task('copy-html', ['parse-index'], () => {
     return gulp.src([
         './**/*.html',
+        '!./index.html',
         '!./node_modules/**',
         '!./dist/**'
     ])

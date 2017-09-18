@@ -2,7 +2,5 @@
     'use strict';
 
     angular
-        .module('nykreditapp', [
-            'ui-router'
-        ])
+        .module('nykreditapp', [])
 })();
